@@ -30,4 +30,9 @@ public class Article implements Serializable {
 
     public Article() {
     }
+
+    public Article(String articleName, Integer articleCode) {
+        this.articleName = articleName;
+        this.articleCode = articleCode;
+    }
 }

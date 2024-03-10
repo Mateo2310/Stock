@@ -32,4 +32,10 @@ public class Stock implements Serializable {
 
     public Stock() {
     }
+
+    public Stock(BigDecimal quantityAvailable, BigDecimal quantityPendingEntry, Article article) {
+        this.quantityAvailable = quantityAvailable;
+        this.quantityPendingEntry = quantityPendingEntry;
+        this.article = article;
+    }
 }

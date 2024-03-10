@@ -6,5 +6,9 @@ import com.stock.stock.dto.StockDTO;
 
 public interface IStockService {
     PaginatedList<StockDTO> getAvailableStock(PageCriteria pageCriteria);
-    PaginatedList<StockDTO> getAvailableStockByArticle(String articleName);
+    StockDTO getStockByCodeArticle(Integer codeArticle);
+
+    Boolean createStock(StockDTO stockDTO);
+
+    Boolean editStock(StockDTO stockDTO);
 }

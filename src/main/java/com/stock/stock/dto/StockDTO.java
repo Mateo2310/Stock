@@ -16,6 +16,8 @@ public class StockDTO implements Serializable {
 
     private String articleName;
 
+    private Integer articleCode;
+
     public StockDTO() {
     }
 
@@ -23,5 +25,12 @@ public class StockDTO implements Serializable {
         this.quantityAvailable = stock.getQuantityAvailable();
         this.quantityPendingEntry = stock.getQuantityPendingEntry();
         this.articleName = stock.getArticle().getArticleName();
+        this.articleCode = stock.getArticle().getArticleCode();
+    }
+
+    public StockDTO(BigDecimal quantityAvailable, BigDecimal quantityPendingEntry, String articleName) {
+        this.quantityAvailable = quantityAvailable;
+        this.quantityPendingEntry = quantityPendingEntry;
+        this.articleName = articleName;
     }
 }
