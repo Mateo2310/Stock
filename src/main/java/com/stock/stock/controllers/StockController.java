@@ -1,8 +1,6 @@
 package com.stock.stock.controllers;
 
 import com.stock.stock.dto.PageCriteria;
-import com.stock.stock.dto.PaginatedList;
-import com.stock.stock.dto.StockDTO;
 import com.stock.stock.services.IStockService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +35,4 @@ public class StockController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
