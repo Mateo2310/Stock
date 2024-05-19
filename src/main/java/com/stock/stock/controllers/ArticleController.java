@@ -24,7 +24,7 @@ public class ArticleController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<?> getArticle(PageCriteria pageCriteria) {
+    public ResponseEntity<?> getArticle(@RequestBody PageCriteria pageCriteria) {
         log.info("Request to get all articles");
         try {
             return ResponseEntity.ok(iArticleService.getAllArticles(pageCriteria));
