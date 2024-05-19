@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController("/article")
+@RestController
+@RequestMapping("/article")
 public class ArticleController {
     private final Logger log = LoggerFactory.getLogger(ArticleController.class);
 

@@ -33,4 +33,9 @@ public class StockDTO implements Serializable {
         this.quantityPendingEntry = quantityPendingEntry;
         this.articleName = articleName;
     }
+
+    public StockDTO(BigDecimal quantityAvailable, BigDecimal quantityPendingEntry) {
+        this.quantityAvailable = quantityAvailable;
+        this.quantityPendingEntry = quantityPendingEntry;
+    }
 }

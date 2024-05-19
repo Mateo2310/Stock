@@ -3,23 +3,28 @@ package com.stock.stock.services.impl;
 import com.stock.stock.dto.ArticleDTO;
 import com.stock.stock.dto.PageCriteria;
 import com.stock.stock.dto.PaginatedList;
+import com.stock.stock.dto.StockDTO;
 import com.stock.stock.entities.Article;
 import com.stock.stock.repositories.IArticlesRepository;
 import com.stock.stock.services.IArticleService;
+import com.stock.stock.services.IStockService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class ArticleServiceImpl implements IArticleService {
 
     private final IArticlesRepository iArticlesRepository;
+    private final IStockService iStockService;
 
-    public ArticleServiceImpl(IArticlesRepository iArticlesRepository) {
+    public ArticleServiceImpl(IArticlesRepository iArticlesRepository, IStockService iStockService) {
         this.iArticlesRepository = iArticlesRepository;
+        this.iStockService = iStockService;
     }
 
 
@@ -52,7 +57,18 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     public void createArticle(ArticleDTO articleDTO) {
-        iArticlesRepository.save(new Article(articleDTO.getArticleName(), articleDTO.getArticleCode()));
+        Article articleCreated = iArticlesRepository.save(new Article(articleDTO.getArticleName(), articleDTO.getArticleCode()));
+        if (articleDTO.getProductPendingEntry() == null) {
+            articleDTO.setProductPendingEntry(BigDecimal.ZERO);
+        }
+
+        if (articleDTO.getProductQuantityAvailable() == null) {
+            articleDTO.setProductQuantityAvailable(BigDecimal.ZERO);
+        }
+
+        iStockService.createStockWithArticle(
+                new StockDTO(articleDTO.getProductQuantityAvailable(), articleDTO.getProductPendingEntry()),
+                articleCreated);
     }
 
     @Override

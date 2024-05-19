@@ -11,25 +11,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: "http://127.0.0.1:8082"
-#      client:
-#        registration:
-#          client-stock:
-#            provider: spring
-#            client-id: client-stock
-#            client-secret: 12345
-#            authorization-grant-type: authorization_code
-#            redirect-uri: "http://127.0.0.1:8080/authorized"
-#            scope:
-#              - openid
-#              - profile
-#              - read
-#              - write
-#            client-name: client-stock
-#        provider:
-#          spring:
-#            issuer-uri: "http://127.0.0.1:8082"
+server:
+  port: 8080

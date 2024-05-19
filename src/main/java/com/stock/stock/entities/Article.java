@@ -25,13 +25,13 @@ public class Article implements Serializable {
     private String articleName;
 
     @NotNull
-    @NotEmpty
     private Integer articleCode;
 
     public Article() {
     }
 
     public Article(String articleName, Integer articleCode) {
+        System.out.println("code: " + articleCode);
         this.articleName = articleName;
         this.articleCode = articleCode;
     }

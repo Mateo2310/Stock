@@ -88,4 +88,15 @@ public class StockServiceImpl implements IStockService {
         this.iStockRepository.save(stock);
         return null;
     }
+
+    @Override
+    public Boolean createStockWithArticle(StockDTO stockDTO, Article article) {
+        Stock stock = new Stock(stockDTO.getQuantityAvailable(),
+                stockDTO.getQuantityPendingEntry(),
+                article);
+
+        iStockRepository.save(stock);
+        log.info("Stock creado con exito");
+        return true;
+    }
 }
