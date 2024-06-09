@@ -3,6 +3,7 @@ package com.stock.stock.controllers;
 import com.stock.stock.dto.ArticleDTO;
 import com.stock.stock.dto.PageCriteria;
 import com.stock.stock.services.IArticleService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class ArticleController {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<?> getArticle(@RequestBody PageCriteria pageCriteria) {
+    public ResponseEntity<?> getArticle(@RequestBody @Valid PageCriteria pageCriteria) {
         log.info("Request to get all articles");
         try {
             return ResponseEntity.ok(iArticleService.getAllArticles(pageCriteria));
@@ -38,7 +39,7 @@ public class ArticleController {
     }
 
     @GetMapping("/findByArticleName/{articleName}")
-    public ResponseEntity<?> getArticleForArticleName(@RequestParam String articleName) {
+    public ResponseEntity<?> getArticleForArticleName(@PathVariable String articleName) {
         log.info("Request to get article for article name");
         try {
             return ResponseEntity.ok(iArticleService.getArticlesForName(articleName));
@@ -52,7 +53,7 @@ public class ArticleController {
     }
 
     @PostMapping("/createArticle")
-    public ResponseEntity<?> createArticle(@RequestBody ArticleDTO article) {
+    public ResponseEntity<?> createArticle(@RequestBody @Valid ArticleDTO article) {
         log.info("Request create an article");
         try {
             iArticleService.createArticle(article);
@@ -67,7 +68,7 @@ public class ArticleController {
     }
 
     @PutMapping("/editArticle")
-    public ResponseEntity<?> editArticle(@RequestBody ArticleDTO article) {
+    public ResponseEntity<?> editArticle(@RequestBody @Valid ArticleDTO article) {
         log.info("Request edit an article");
         try {
             Boolean editArticleSuccess = iArticleService.editArticle(article);

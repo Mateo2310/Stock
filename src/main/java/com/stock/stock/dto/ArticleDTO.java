@@ -1,6 +1,9 @@
 package com.stock.stock.dto;
 
 import com.stock.stock.entities.Article;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +13,19 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ArticleDTO implements Serializable {
+    @NotNull(message = "name article shouldn't be null")
+    @NotEmpty(message = "name article shouldn't be empty")
     private String articleName;
+
+    @NotNull(message = "code article shouldn't be null")
     private Integer articleCode;
+
+    @NotNull
+    @Min(0)
     private BigDecimal productQuantityAvailable;
+
+    @NotNull
+    @Min(0)
     private BigDecimal productPendingEntry;
 
     public ArticleDTO(String articleName, Integer articleCode, BigDecimal productQuantityAvailable, BigDecimal productPendingEntry) {
