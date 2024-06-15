@@ -28,6 +28,9 @@ public class ArticleDTO implements Serializable {
     @Min(0)
     private BigDecimal productPendingEntry;
 
+    @NotNull
+    private String dueDate;
+
     public ArticleDTO(String articleName, Integer articleCode, BigDecimal productQuantityAvailable, BigDecimal productPendingEntry) {
         this.articleName = articleName;
         this.articleCode = articleCode;

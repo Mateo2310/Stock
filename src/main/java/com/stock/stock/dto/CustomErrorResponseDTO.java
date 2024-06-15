@@ -8,11 +8,11 @@ import java.util.Map;
 @Getter
 @Setter
 public class CustomErrorResponseDTO {
-    private String errorCode;
+    private int errorCode;
     private Map<String, String> message;
     private String timestamp;
 
-    public CustomErrorResponseDTO(String errorCode, Map<String, String> message, String timestamp) {
+    public CustomErrorResponseDTO(int errorCode, Map<String, String> message, String timestamp) {
         this.errorCode = errorCode;
         this.message = message;
         this.timestamp = timestamp;

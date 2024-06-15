@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "article")
@@ -27,12 +28,25 @@ public class Article implements Serializable {
     @NotNull
     private Integer articleCode;
 
+    @NotNull
+    private Date dueDate;
+
+    @NotNull
+    private Date createdAt;
+
+    @NotNull
+    private Date updatedAt;
+
     public Article() {
     }
 
-    public Article(String articleName, Integer articleCode) {
-        System.out.println("code: " + articleCode);
+    public Article(String articleName, Integer articleCode, Date dueDate, Boolean isNew) {
         this.articleName = articleName;
         this.articleCode = articleCode;
+        this.dueDate = dueDate;
+        if (isNew) {
+            this.createdAt = new Date();
+        }
+        this.updatedAt = new Date();
     }
 }

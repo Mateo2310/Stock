@@ -1,7 +1,9 @@
 package com.stock.stock.controllers;
 
 import com.stock.stock.dto.ArticleDTO;
+import com.stock.stock.dto.CustomErrorResponseDTO;
 import com.stock.stock.dto.PageCriteria;
+import com.stock.stock.exception.ResourceNotFoundException;
 import com.stock.stock.services.IArticleService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,12 +32,16 @@ public class ArticleController {
         log.info("Request to get all articles");
         try {
             return ResponseEntity.ok(iArticleService.getAllArticles(pageCriteria));
-        } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("status", "500 Internal Server Error");
-            response.put("content", e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ResourceNotFoundException e) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", e.getMessage());
+            errors.put("errorClass", e.getErrorClass());
+            CustomErrorResponseDTO customErrorResponseDTO = new CustomErrorResponseDTO(
+                    e.getErrorCode(),
+                    errors,
+                    "313224234"
+            );
+            return new ResponseEntity<>(customErrorResponseDTO, HttpStatus.valueOf(e.getErrorCode()));
         }
     }
 
@@ -42,13 +49,17 @@ public class ArticleController {
     public ResponseEntity<?> getArticleForArticleName(@PathVariable String articleName) {
         log.info("Request to get article for article name");
         try {
-            return ResponseEntity.ok(iArticleService.getArticlesForName(articleName));
-        } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("status", "500 Internal Server Error");
-            response.put("content", e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.ok(this.iArticleService.getArticlesForName(articleName));
+        } catch (ResourceNotFoundException e) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", e.getMessage());
+            errors.put("errorClass", e.getErrorClass());
+            CustomErrorResponseDTO customErrorResponseDTO = new CustomErrorResponseDTO(
+                    e.getErrorCode(),
+                    errors,
+                    "313224234"
+            );
+            return new ResponseEntity<>(customErrorResponseDTO, HttpStatus.valueOf(e.getErrorCode()));
         }
     }
 
@@ -56,14 +67,18 @@ public class ArticleController {
     public ResponseEntity<?> createArticle(@RequestBody @Valid ArticleDTO article) {
         log.info("Request create an article");
         try {
-            iArticleService.createArticle(article);
+            this.iArticleService.createArticle(article);
             return ResponseEntity.ok("Articulo creado con exito");
-        } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("status", "500 Internal Server Error");
-            response.put("content", e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ResourceNotFoundException e) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", e.getMessage());
+            errors.put("errorClass", e.getErrorClass());
+            CustomErrorResponseDTO customErrorResponseDTO = new CustomErrorResponseDTO(
+                    e.getErrorCode(),
+                    errors,
+                    "313224234"
+            );
+            return new ResponseEntity<>(customErrorResponseDTO, HttpStatus.valueOf(e.getErrorCode()));
         }
     }
 
@@ -71,18 +86,22 @@ public class ArticleController {
     public ResponseEntity<?> editArticle(@RequestBody @Valid ArticleDTO article) {
         log.info("Request edit an article");
         try {
-            Boolean editArticleSuccess = iArticleService.editArticle(article);
+            Boolean editArticleSuccess = this.iArticleService.editArticle(article);
             if (editArticleSuccess) {
                 return ResponseEntity.ok("Articulo creado con exito");
             }
 
             return ResponseEntity.badRequest().build();
-        } catch (Exception e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("status", "500 Internal Server Error");
-            response.put("content", e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ResourceNotFoundException e) {
+            Map<String, String> errors = new HashMap<>();
+            errors.put("message", e.getMessage());
+            errors.put("errorClass", e.getErrorClass());
+            CustomErrorResponseDTO customErrorResponseDTO = new CustomErrorResponseDTO(
+                    e.getErrorCode(),
+                    errors,
+                    "313224234"
+            );
+            return new ResponseEntity<>(customErrorResponseDTO, HttpStatus.valueOf(e.getErrorCode()));
         }
     }
 }
